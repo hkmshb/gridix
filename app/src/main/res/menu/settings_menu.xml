@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group
+        android:checkableBehavior="single">
+        <item
+            app:showAsAction="never"
+            android:checked="true"
+            android:id="@+id/show_items_in_list_option"
+            android:title="ListView" />
+        <item
+            app:showAsAction="never"
+            android:title="GridView"
+            android:id="@+id/show_items_in_grid_option"/>
+    </group>
+
+
+</menu>
