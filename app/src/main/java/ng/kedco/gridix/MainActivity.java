@@ -1,4 +1,4 @@
-package com.shaibujnr.kedco;
+package ng.kedco.gridix;
 
 import android.content.res.Configuration;
 import android.support.annotation.Nullable;
@@ -14,12 +14,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import com.shaibujnr.kedco.fragments.DistributionsFragment;
-import com.shaibujnr.kedco.fragments.DistributionsListFragment;
-import com.shaibujnr.kedco.fragments.InjectionsFragment;
-import com.shaibujnr.kedco.fragments.InjectionsListFragment;
-import com.shaibujnr.kedco.fragments.TransmissionsFragment;
-import com.shaibujnr.kedco.fragments.TransmissionsListFragment;
+import ng.kedco.gridix.fragments.DistributionsFragment;
+import ng.kedco.gridix.fragments.DistributionsListFragment;
+import ng.kedco.gridix.fragments.InjectionsFragment;
+import ng.kedco.gridix.fragments.InjectionsListFragment;
+import ng.kedco.gridix.fragments.TransmissionsFragment;
+import ng.kedco.gridix.fragments.TransmissionsListFragment;
+
 
 public class MainActivity extends AppCompatActivity {
     DrawerLayout mDrawerLayout;

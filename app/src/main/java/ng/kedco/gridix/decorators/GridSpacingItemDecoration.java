@@ -1,4 +1,4 @@
-package com.shaibujnr.kedco.decorators;
+package ng.kedco.gridix.decorators;
 
 import android.content.Context;
 import android.content.res.Resources;

@@ -1,4 +1,4 @@
-package com.shaibujnr.kedco.adapters;
+package ng.kedco.gridix.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -10,12 +10,19 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.shaibujnr.kedco.R;
-import com.shaibujnr.kedco.categories.Distribution;
-import com.shaibujnr.kedco.categories.InjectionSubstation;
-import com.shaibujnr.kedco.categories.Transmission;
 
 import java.util.ArrayList;
+
+import ng.kedco.gridix.R;
+import ng.kedco.gridix.categories.Distribution;
+import ng.kedco.gridix.categories.InjectionSubstation;
+import ng.kedco.gridix.categories.Transmission;
+
+
+
+
+
+
 
 /**
  * Created by shaibujnr on 8/18/16.
@@ -26,6 +33,13 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyHolder> {
     private ArrayList categories;
     private Class categoryType;
     private int card_background_resource;
+
+
+
+
+
+
+
 
 
 

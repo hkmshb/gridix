@@ -1,4 +1,4 @@
-package com.shaibujnr.kedco.categories;
+package ng.kedco.gridix.categories;
 
 import java.util.ArrayList;
 

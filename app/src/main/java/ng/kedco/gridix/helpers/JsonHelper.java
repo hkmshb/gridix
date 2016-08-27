@@ -1,9 +1,6 @@
-package com.shaibujnr.kedco.helpers;
+package ng.kedco.gridix.helpers;
 
 import android.support.v4.content.res.TypedArrayUtils;
-
-import com.shaibujnr.kedco.categories.Transmission;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 

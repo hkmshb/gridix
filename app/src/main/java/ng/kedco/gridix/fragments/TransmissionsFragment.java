@@ -1,4 +1,4 @@
-package com.shaibujnr.kedco.fragments;
+package ng.kedco.gridix.fragments;
 
 
 import android.content.res.Resources;
@@ -12,13 +12,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.shaibujnr.kedco.R;
-import com.shaibujnr.kedco.adapters.CardAdapter;
-import com.shaibujnr.kedco.categories.InjectionSubstation;
-import com.shaibujnr.kedco.categories.Transmission;
-import com.shaibujnr.kedco.decorators.GridSpacingItemDecoration;
+
 
 import java.util.ArrayList;
+
+import ng.kedco.gridix.R;
+import ng.kedco.gridix.adapters.CardAdapter;
+import ng.kedco.gridix.categories.InjectionSubstation;
+import ng.kedco.gridix.categories.Transmission;
+import ng.kedco.gridix.decorators.GridSpacingItemDecoration;
 
 /**
  * A simple {@link Fragment} subclass.

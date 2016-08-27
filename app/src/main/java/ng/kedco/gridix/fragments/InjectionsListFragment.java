@@ -1,4 +1,4 @@
-package com.shaibujnr.kedco.fragments;
+package ng.kedco.gridix.fragments;
 
 
 import android.os.Bundle;
@@ -7,7 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.shaibujnr.kedco.R;
+import ng.kedco.gridix.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
