@@ -1,4 +1,4 @@
-package ng.kedco.gridix.fragments;
+package ng.kedco.gridix.fragments.grid;
 
 
 import android.content.res.Resources;
@@ -18,8 +18,8 @@ import java.util.ArrayList;
 
 import ng.kedco.gridix.R;
 import ng.kedco.gridix.adapters.CardAdapter;
-import ng.kedco.gridix.categories.InjectionSubstation;
-import ng.kedco.gridix.categories.Transmission;
+import ng.kedco.gridix.models.InjectionStation;
+import ng.kedco.gridix.models.TransmissionStation;
 import ng.kedco.gridix.decorators.GridSpacingItemDecoration;
 
 /**
@@ -27,7 +27,7 @@ import ng.kedco.gridix.decorators.GridSpacingItemDecoration;
  */
 public class TransmissionsFragment extends Fragment {
     RecyclerView recyclerView;
-    ArrayList<Transmission> transmissionList;
+    ArrayList<TransmissionStation> transmissionStationList;
     CardAdapter adapter;
 
 
@@ -42,8 +42,8 @@ public class TransmissionsFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_transmissions, container, false);
         recyclerView = (RecyclerView) v.findViewById(R.id.trans_recycler);
-        transmissionList = new ArrayList<Transmission>();
-        adapter = new CardAdapter(getActivity(),transmissionList,Transmission.class);
+        transmissionStationList = new ArrayList<TransmissionStation>();
+        adapter = new CardAdapter(getActivity(), transmissionStationList,TransmissionStation.class);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(),2);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(2,dpToPx(10),true));
@@ -55,20 +55,25 @@ public class TransmissionsFragment extends Fragment {
     }
 
     private void prepareTransmissions() {
-        Transmission a = new Transmission("Transmission One gxcvxcvxcvzxcvzxc",new ArrayList<InjectionSubstation>());
-        transmissionList.add(a);
+        TransmissionStation a = new TransmissionStation();
+        a.setName("TransmissionStation One");
+        transmissionStationList.add(a);
 
-        Transmission b = new Transmission("Transmission One",new ArrayList<InjectionSubstation>());
-        transmissionList.add(b);
+        TransmissionStation b = new TransmissionStation();
+        b.setName("TransmissionStation Two");
+        transmissionStationList.add(b);
 
-        Transmission c = new Transmission("Transmission One",new ArrayList<InjectionSubstation>());
-        transmissionList.add(c);
+        TransmissionStation c = new TransmissionStation();
+        c.setName("TransmissionStation Three");
+        transmissionStationList.add(c);
 
-        Transmission d = new Transmission("Transmission One",new ArrayList<InjectionSubstation>());
-        transmissionList.add(d);
+        TransmissionStation d = new TransmissionStation();
+        d.setName("TransmissionStation Four");
+        transmissionStationList.add(d);
 
-        Transmission e = new Transmission("Transmission One",new ArrayList<InjectionSubstation>());
-        transmissionList.add(e);
+        TransmissionStation e = new TransmissionStation();
+        e.setName("TransmissionStation Five");
+        transmissionStationList.add(e);
 
         adapter.notifyDataSetChanged();
 

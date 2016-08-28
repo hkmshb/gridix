@@ -1,4 +1,4 @@
-package ng.kedco.gridix.fragments;
+package ng.kedco.gridix.fragments.list;
 
 
 import android.os.Bundle;
@@ -14,15 +14,15 @@ import java.util.ArrayList;
 
 import ng.kedco.gridix.R;
 import ng.kedco.gridix.adapters.ListItemAdapter;
-import ng.kedco.gridix.categories.Distribution;
-import ng.kedco.gridix.categories.InjectionSubstation;
-import ng.kedco.gridix.categories.Transmission;
+import ng.kedco.gridix.models.DistributionSubstation;
+import ng.kedco.gridix.models.InjectionStation;
+import ng.kedco.gridix.models.TransmissionStation;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class DistributionsListFragment extends Fragment {
-    ArrayList<Distribution> distros = new ArrayList<Distribution>();
+    ArrayList<DistributionSubstation> distros = new ArrayList<DistributionSubstation>();
 
     public DistributionsListFragment() {
         // Required empty public constructor
@@ -34,15 +34,14 @@ public class DistributionsListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         for(int i=0; i<=10;i++){
-            Distribution dist = new Distribution("Distribution "+i,
-                    new InjectionSubstation("akd",new ArrayList<Distribution>(),
-                            new Transmission("dsl",new ArrayList<InjectionSubstation>())));
+            DistributionSubstation dist = new DistributionSubstation();
+            dist.setName("DistributionStation "+i);
             distros.add(dist);
         }
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_distributions_list, container, false);
         ListView lv = (ListView) v.findViewById(R.id.distro_list_fragment);
-        ListItemAdapter adapter = new ListItemAdapter(getActivity(),distros, Distribution.class);
+        ListItemAdapter adapter = new ListItemAdapter(getActivity(),distros, DistributionSubstation.class);
         lv.setAdapter(adapter);
         return v;
     }

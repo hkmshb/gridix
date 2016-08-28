@@ -12,9 +12,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import ng.kedco.gridix.R;
-import ng.kedco.gridix.categories.Distribution;
-import ng.kedco.gridix.categories.InjectionSubstation;
-import ng.kedco.gridix.categories.Transmission;
+import ng.kedco.gridix.models.DistributionSubstation;
+import ng.kedco.gridix.models.InjectionStation;
+import ng.kedco.gridix.models.TransmissionStation;
 
 /**
  * Created by shaibujnr on 8/20/16.
@@ -56,8 +56,8 @@ public class ListItemAdapter extends BaseAdapter {
         ImageView infoImg = (ImageView) view.findViewById(R.id.list_item_info);
         TextView itemName = (TextView) view.findViewById(R.id.list_item_name);
 
-        if(aClass == Transmission.class){
-            Transmission t = (Transmission) stations.get(i);
+        if(aClass == TransmissionStation.class){
+            TransmissionStation t = (TransmissionStation) stations.get(i);
             itemImage.setBackgroundResource(R.drawable.trans_sample);
             itemName.setText(t.getName());
             infoImg.setOnClickListener(new View.OnClickListener() {
@@ -67,8 +67,8 @@ public class ListItemAdapter extends BaseAdapter {
                 }
             });
         }
-        else if(aClass == InjectionSubstation.class){
-            InjectionSubstation a = (InjectionSubstation) stations.get(i);
+        else if(aClass == InjectionStation.class){
+            InjectionStation a = (InjectionStation) stations.get(i);
             itemImage.setBackgroundResource(R.drawable.trans_sample);
             itemName.setText(a.getName());
             infoImg.setOnClickListener(new View.OnClickListener() {
@@ -78,8 +78,8 @@ public class ListItemAdapter extends BaseAdapter {
                 }
             });
         }
-        else if(aClass == Distribution.class){
-            Distribution d = (Distribution) stations.get(i);
+        else if(aClass == DistributionSubstation.class){
+            DistributionSubstation d = (DistributionSubstation) stations.get(i);
             itemImage.setBackgroundResource(R.drawable.trans_sample);
             itemName.setText(d.getName());
             infoImg.setOnClickListener(new View.OnClickListener() {

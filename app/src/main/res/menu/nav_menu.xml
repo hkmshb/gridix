@@ -15,6 +15,27 @@
             android:title="Distribution Stations"
             android:checked="false"
             android:id="@+id/nav_menu_distribution" />
+
     </group>
+
+    <item
+        android:title="Feeders">
+        <menu>
+            <group
+                android:checkableBehavior="single">
+                <item
+                    android:title="33kv"
+                    android:checked="false"
+                    android:id="@+id/nav_menu_feeder_33"/>
+                <item
+                    android:title="11kv"
+                    android:checked="false"
+                    android:id="@+id/nav_menu_feeder_11"/>
+
+            </group>
+
+        </menu>
+    </item>
+
 
 </menu>

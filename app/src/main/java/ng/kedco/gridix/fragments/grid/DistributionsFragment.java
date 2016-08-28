@@ -1,4 +1,4 @@
-package ng.kedco.gridix.fragments;
+package ng.kedco.gridix.fragments.grid;
 
 
 import android.content.res.Resources;
@@ -18,9 +18,9 @@ import java.util.ArrayList;
 
 import ng.kedco.gridix.R;
 import ng.kedco.gridix.adapters.CardAdapter;
-import ng.kedco.gridix.categories.Distribution;
-import ng.kedco.gridix.categories.InjectionSubstation;
-import ng.kedco.gridix.categories.Transmission;
+import ng.kedco.gridix.models.DistributionSubstation;
+import ng.kedco.gridix.models.InjectionStation;
+import ng.kedco.gridix.models.TransmissionStation;
 import ng.kedco.gridix.decorators.GridSpacingItemDecoration;
 
 /**
@@ -28,7 +28,7 @@ import ng.kedco.gridix.decorators.GridSpacingItemDecoration;
  */
 public class DistributionsFragment extends Fragment {
     RecyclerView recyclerView;
-    ArrayList<Distribution> distributionList;
+    ArrayList<DistributionSubstation> distributionSubstationList;
     ng.kedco.gridix.adapters.CardAdapter adapter;
 
 
@@ -43,8 +43,8 @@ public class DistributionsFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_injections, container, false);
         recyclerView = (RecyclerView) v.findViewById(R.id.injection_recycler);
-        distributionList = new ArrayList<Distribution>();
-        adapter = new CardAdapter(getActivity(),distributionList,Distribution.class);
+        distributionSubstationList = new ArrayList<DistributionSubstation>();
+        adapter = new CardAdapter(getActivity(), distributionSubstationList,DistributionSubstation.class);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(),2);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(2,dpToPx(10),true));
@@ -56,30 +56,25 @@ public class DistributionsFragment extends Fragment {
     }
 
     private void prepareTransmissions() {
-        Distribution a = new Distribution("Distribution one",new InjectionSubstation("anonymous",
-                new ArrayList<Distribution>(),new Transmission("anonymous",
-                new ArrayList<InjectionSubstation>())));
-        distributionList.add(a);
+        DistributionSubstation a = new DistributionSubstation();
+        a.setName("Distribution One");
+        distributionSubstationList.add(a);
 
-        Distribution b = new Distribution("Distribution one",new InjectionSubstation("anonymous",
-                new ArrayList<Distribution>(),new Transmission("anonymous",
-                new ArrayList<InjectionSubstation>())));
-        distributionList.add(b);
+        DistributionSubstation b = new DistributionSubstation();
+        b.setName("Distribution Two");
+        distributionSubstationList.add(b);
 
-        Distribution c = new Distribution("Distribution one",new InjectionSubstation("anonymous",
-                new ArrayList<Distribution>(),new Transmission("anonymous",
-                new ArrayList<InjectionSubstation>())));
-        distributionList.add(c);
+        DistributionSubstation c = new DistributionSubstation();
+        c.setName("Distribution Three");
+        distributionSubstationList.add(c);
 
-        Distribution d = new Distribution("Distribution one",new InjectionSubstation("anonymous",
-                new ArrayList<Distribution>(),new Transmission("anonymous",
-                new ArrayList<InjectionSubstation>())));
-        distributionList.add(d);
+        DistributionSubstation d = new DistributionSubstation();
+        d.setName("Distribution Four");
+        distributionSubstationList.add(d);
 
-        Distribution e = new Distribution("Distribution one",new InjectionSubstation("anonymous",
-                new ArrayList<Distribution>(),new Transmission("anonymous",
-                new ArrayList<InjectionSubstation>())));
-        distributionList.add(e);
+        DistributionSubstation e = new DistributionSubstation();
+        e.setName("Distribution Five");
+        distributionSubstationList.add(e);
 
         adapter.notifyDataSetChanged();
 

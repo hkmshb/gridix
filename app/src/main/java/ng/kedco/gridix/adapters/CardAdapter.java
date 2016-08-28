@@ -14,14 +14,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import ng.kedco.gridix.R;
-import ng.kedco.gridix.categories.Distribution;
-import ng.kedco.gridix.categories.InjectionSubstation;
-import ng.kedco.gridix.categories.Transmission;
-
-
-
-
-
+import ng.kedco.gridix.models.DistributionSubstation;
+import ng.kedco.gridix.models.InjectionStation;
+import ng.kedco.gridix.models.TransmissionStation;
 
 
 /**
@@ -58,10 +53,10 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyHolder> {
 
     @Override
     public void onBindViewHolder(MyHolder holder, int position) {
-        if(categoryType == Transmission.class){
-            Transmission transmission = (Transmission) categories.get(position);
+        if(categoryType == TransmissionStation.class){
+            TransmissionStation transmissionStation = (TransmissionStation) categories.get(position);
             card_background_resource = R.drawable.trans_sample;
-            holder.nameLabel.setText(transmission.getName());
+            holder.nameLabel.setText(transmissionStation.getName());
             holder.card_background.setBackgroundResource(card_background_resource);
             holder.card_info_dots.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -71,8 +66,8 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyHolder> {
             });
 
         }
-        else if(categoryType == InjectionSubstation.class){
-            InjectionSubstation injection = (InjectionSubstation) categories.get(position);
+        else if(categoryType == InjectionStation.class){
+            InjectionStation injection = (InjectionStation) categories.get(position);
             card_background_resource = R.drawable.album2;
             holder.nameLabel.setText(injection.getName());
             holder.card_background.setBackgroundResource(card_background_resource);
@@ -84,10 +79,10 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyHolder> {
             });
 
         }
-        else if(categoryType == Distribution.class){
-            Distribution distribution = (Distribution) categories.get(position);
+        else if(categoryType == DistributionSubstation.class){
+            DistributionSubstation distributionSubstation = (DistributionSubstation) categories.get(position);
             card_background_resource = R.drawable.album3;
-            holder.nameLabel.setText(distribution.getName());
+            holder.nameLabel.setText(distributionSubstation.getName());
             holder.card_background.setBackgroundResource(card_background_resource);
             holder.card_info_dots.setOnClickListener(new View.OnClickListener() {
                 @Override

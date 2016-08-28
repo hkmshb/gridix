@@ -1,4 +1,4 @@
-package ng.kedco.gridix.fragments;
+package ng.kedco.gridix.fragments.grid;
 
 
 import android.content.res.Resources;
@@ -17,9 +17,9 @@ import java.util.ArrayList;
 
 import ng.kedco.gridix.R;
 import ng.kedco.gridix.adapters.CardAdapter;
-import ng.kedco.gridix.categories.Distribution;
-import ng.kedco.gridix.categories.InjectionSubstation;
-import ng.kedco.gridix.categories.Transmission;
+import ng.kedco.gridix.models.DistributionSubstation;
+import ng.kedco.gridix.models.InjectionStation;
+import ng.kedco.gridix.models.TransmissionStation;
 import ng.kedco.gridix.decorators.GridSpacingItemDecoration;
 
 /**
@@ -27,7 +27,7 @@ import ng.kedco.gridix.decorators.GridSpacingItemDecoration;
  */
 public class InjectionsFragment extends Fragment {
     RecyclerView recyclerView;
-    ArrayList<InjectionSubstation> injectionList;
+    ArrayList<InjectionStation> injectionList;
     CardAdapter adapter;
 
 
@@ -42,8 +42,8 @@ public class InjectionsFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_injections, container, false);
         recyclerView = (RecyclerView) v.findViewById(R.id.injection_recycler);
-        injectionList = new ArrayList<InjectionSubstation>();
-        adapter = new CardAdapter(getActivity(),injectionList,InjectionSubstation.class);
+        injectionList = new ArrayList<InjectionStation>();
+        adapter = new CardAdapter(getActivity(),injectionList,InjectionStation.class);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(),2);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(2,dpToPx(10),true));
@@ -55,24 +55,19 @@ public class InjectionsFragment extends Fragment {
     }
 
     private void prepareTransmissions() {
-        InjectionSubstation a = new InjectionSubstation("Injection one",new ArrayList<Distribution>(),
-                new Transmission("anonymous",new ArrayList<InjectionSubstation>()));
+        InjectionStation a = new InjectionStation();
         injectionList.add(a);
 
-        InjectionSubstation b = new InjectionSubstation("Injection one",new ArrayList<Distribution>(),
-                new Transmission("anonymous",new ArrayList<InjectionSubstation>()));
+        InjectionStation b = new InjectionStation();
         injectionList.add(b);
 
-        InjectionSubstation c = new InjectionSubstation("Injection one",new ArrayList<Distribution>(),
-                new Transmission("anonymous",new ArrayList<InjectionSubstation>()));
+        InjectionStation c = new InjectionStation();
         injectionList.add(c);
 
-        InjectionSubstation d = new InjectionSubstation("Injection one",new ArrayList<Distribution>(),
-                new Transmission("anonymous",new ArrayList<InjectionSubstation>()));
+        InjectionStation d = new InjectionStation();
         injectionList.add(d);
 
-        InjectionSubstation e = new InjectionSubstation("Injection one",new ArrayList<Distribution>(),
-                new Transmission("anonymous",new ArrayList<InjectionSubstation>()));
+        InjectionStation e = new InjectionStation();
         injectionList.add(e);
 
 

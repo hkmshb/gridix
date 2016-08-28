@@ -2,12 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.list.InjectionsListFragment">
+    tools:context="ng.kedco.gridix.fragments.grid.FeederFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Injection list" />
+        android:text="Feeder Grid" />
 
 </FrameLayout>

@@ -1,4 +1,4 @@
-package ng.kedco.gridix.fragments;
+package ng.kedco.gridix.fragments.list;
 
 
 import android.os.Bundle;
@@ -9,14 +9,13 @@ import android.view.ViewGroup;
 
 import ng.kedco.gridix.R;
 
-
 /**
  * A simple {@link Fragment} subclass.
  */
-public class InjectionsListFragment extends Fragment {
+public class UpriserListFragment extends Fragment {
 
 
-    public InjectionsListFragment() {
+    public UpriserListFragment() {
         // Required empty public constructor
     }
 
@@ -25,7 +24,7 @@ public class InjectionsListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_injections_list, container, false);
+        return inflater.inflate(R.layout.fragment_upriser_list, container, false);
     }
 
 }

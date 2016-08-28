@@ -14,12 +14,16 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import ng.kedco.gridix.fragments.DistributionsFragment;
-import ng.kedco.gridix.fragments.DistributionsListFragment;
-import ng.kedco.gridix.fragments.InjectionsFragment;
-import ng.kedco.gridix.fragments.InjectionsListFragment;
-import ng.kedco.gridix.fragments.TransmissionsFragment;
-import ng.kedco.gridix.fragments.TransmissionsListFragment;
+import ng.kedco.gridix.fragments.grid.DistributionsFragment;
+import ng.kedco.gridix.fragments.grid.FeederFragment;
+import ng.kedco.gridix.fragments.grid.UpriserFragment;
+import ng.kedco.gridix.fragments.list.DistributionsListFragment;
+import ng.kedco.gridix.fragments.grid.InjectionsFragment;
+import ng.kedco.gridix.fragments.list.FeederListFragment;
+import ng.kedco.gridix.fragments.list.InjectionsListFragment;
+import ng.kedco.gridix.fragments.grid.TransmissionsFragment;
+import ng.kedco.gridix.fragments.list.TransmissionsListFragment;
+import ng.kedco.gridix.fragments.list.UpriserListFragment;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -29,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     ActionBarDrawerToggle drawerToggle;
     int selectedViewOption;
     Class currentDisplayClass;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         selectedViewOption = 1;
         currentDisplayClass = TransmissionsListFragment.class;
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new TransmissionsListFragment()).commit();
-        setTitle("Transmission Stations");
+        setTitle("TransmissionStation Stations");
     }
 
     @Override
@@ -108,6 +113,14 @@ public class MainActivity extends AppCompatActivity {
                     getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new InjectionsListFragment()).commit();
                     currentDisplayClass = InjectionsListFragment.class;
                 }
+                else if(currentDisplayClass == FeederFragment.class){
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new FeederListFragment()).commit();
+                    currentDisplayClass = FeederListFragment.class;
+                }
+                else if(currentDisplayClass == UpriserFragment.class){
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new UpriserListFragment()).commit();
+                    currentDisplayClass = UpriserListFragment.class;
+                }
                 return true;
             case R.id.show_items_in_grid_option:
                 selectedViewOption = 2;
@@ -122,6 +135,14 @@ public class MainActivity extends AppCompatActivity {
                 else if(currentDisplayClass == InjectionsListFragment.class){
                     getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new InjectionsFragment()).commit();
                     currentDisplayClass = InjectionsFragment.class;
+                }
+                else if(currentDisplayClass == FeederListFragment.class){
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new FeederFragment()).commit();
+                    currentDisplayClass = FeederFragment.class;
+                }
+                else if(currentDisplayClass == UpriserListFragment.class){
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new UpriserFragment()).commit();
+                    currentDisplayClass = UpriserFragment.class;
                 }
                 return true;
         }
@@ -148,21 +169,7 @@ public class MainActivity extends AppCompatActivity {
     private void selectDrawerItem(MenuItem item) {
         Fragment fragment = null;
         int id = item.getItemId();
-        switch(id){
-            case R.id.nav_menu_transmission:
-                setViewArrangement(selectedViewOption,id);
-                break;
-            case R.id.nav_menu_injection:
-                setViewArrangement(selectedViewOption,id);
-                break;
-            case R.id.nav_menu_distribution:
-                setViewArrangement(selectedViewOption,id);
-                break;
-            default:
-                currentDisplayClass = TransmissionsListFragment.class;
-
-
-        }
+        setViewArrangement(selectedViewOption,id);
         try{
             fragment = (Fragment) currentDisplayClass.newInstance();
         }catch(Exception e){
@@ -197,6 +204,18 @@ public class MainActivity extends AppCompatActivity {
         else if(selcectedViewOption == 2 && id == R.id.nav_menu_distribution){
             currentDisplayClass = DistributionsFragment.class;
 
+        }
+        else if(selcectedViewOption == 1 && id == R.id.nav_menu_feeder_33){
+            currentDisplayClass = FeederListFragment.class;
+        }
+        else if(selcectedViewOption == 2 && id == R.id.nav_menu_feeder_33){
+            currentDisplayClass = FeederFragment.class;
+        }
+        else if(selcectedViewOption == 1 && id==R.id.nav_menu_feeder_11){
+            currentDisplayClass = UpriserListFragment.class;
+        }
+        else if(selcectedViewOption == 2 && id==R.id.nav_menu_feeder_11){
+            currentDisplayClass = UpriserFragment.class;
         }
     }
 
