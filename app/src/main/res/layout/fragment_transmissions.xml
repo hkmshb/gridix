@@ -6,18 +6,25 @@
     android:layout_height="match_parent"
     android:id="@+id/transmission_root"
     tools:context=".fragments.TransmissionsFragment">
-    <include
-        layout="@layout/list_view"
-        android:id="@+id/transmission_list_view"
-        android:layout_height="match_parent"
+    <ViewSwitcher
         android:layout_width="match_parent"
-        android:visibility="gone"/>
+        android:layout_height="match_parent"
+        android:id="@+id/trans_switcher">
+        <include
+            layout="@layout/list_view"
+            android:id="@+id/transmission_list_view"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:visibility="gone"/>
 
-    <include
-        layout="@layout/grid_view"
-        android:id="@+id/transmission_grid_view"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:visibility="gone"/>
+        <include
+            layout="@layout/grid_view"
+            android:id="@+id/transmission_grid_view"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:visibility="gone"/>
+
+
+    </ViewSwitcher>
 
 </RelativeLayout>

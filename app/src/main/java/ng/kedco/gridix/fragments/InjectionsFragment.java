@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+import android.widget.ViewSwitcher;
 
 
 import java.util.ArrayList;
@@ -32,79 +33,71 @@ import ng.kedco.gridix.decorators.GridSpacingItemDecoration;
  * A simple {@link Fragment} subclass.
  */
 public class InjectionsFragment extends Fragment {
+    //general setup
+    View fragView;
     ViewType viewType;
-    ArrayList<InjectionStation> injectionList = new ArrayList<InjectionStation>();
+    View list,grid;
+    ViewSwitcher switcher;
+    ArrayList<InjectionStation> injectionStationList = new ArrayList<InjectionStation>();
+    RelativeLayout rootLayout;
     //Grid setup
-    RecyclerView recyclerView;
+    RecyclerView injectionsGridView;
     CardAdapter gridAdapter;
     //List setup
-    ListView injectionListView;
-    ListItemAdapter injectionListAdapter;
+    ListView injectionsListView;
+    ListItemAdapter injectionsListAdapter;
 
 
     public InjectionsFragment() {
         // Required empty public constructor
+        prepareStations();
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View fragView = inflater.inflate(R.layout.fragment_injections,container,false);
-        SwipeRefreshLayout rootLayout = (SwipeRefreshLayout) fragView.findViewById(R.id.injection_root);
-        rootLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                Toast.makeText(getActivity(),"inject refreshed",Toast.LENGTH_SHORT).show();
-            }
-        });
-        SwipeRefreshLayout.LayoutParams lp = new SwipeRefreshLayout.LayoutParams(SwipeRefreshLayout.LayoutParams.MATCH_PARENT,
-                SwipeRefreshLayout.LayoutParams.MATCH_PARENT);
         viewType = (ViewType) getArguments().getSerializable("view_type");
-        // Inflate the layout for this fragment
+        fragView= inflater.inflate(R.layout.fragment_injections,container,false);
+        rootLayout = (RelativeLayout) fragView.findViewById(R.id.injections_root);
+        switcher = (ViewSwitcher) fragView.findViewById(R.id.injections_switcher);
+        initialiseListView();
+        initialiseGridView();
         switch(viewType){
             case LIST:
-                injectionListView = new ListView(getActivity());
-                injectionListAdapter = new ListItemAdapter(getActivity(),injectionList,InjectionStation.class);
-                injectionListView.setAdapter(injectionListAdapter);
-                rootLayout.removeAllViews();
-                rootLayout.addView(injectionListView,lp);
-                prepareStations();
-                injectionListAdapter.notifyDataSetChanged();
                 break;
             case GRID:
-                recyclerView = new RecyclerView(getActivity());
-                gridAdapter = new CardAdapter(getActivity(),injectionList,InjectionStation.class);
-                RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(),2);
-                recyclerView.setLayoutManager(mLayoutManager);
-                recyclerView.addItemDecoration(new GridSpacingItemDecoration(2,dpToPx(10),true));
-                recyclerView.setItemAnimator(new DefaultItemAnimator());
-                recyclerView.setAdapter(gridAdapter);
-                rootLayout.removeAllViews();
-                rootLayout.addView(recyclerView,lp);
-                prepareStations();
-                gridAdapter.notifyDataSetChanged();
+                switcher.showNext();
                 break;
         }
 
         return fragView;
     }
 
+    private void initialiseListView() {
+        list = fragView.findViewById(R.id.injections_list_view);
+        injectionsListView = (ListView) list.findViewById(R.id.swipe_list_view);
+        injectionsListAdapter = new ListItemAdapter(getActivity(),injectionStationList,InjectionStation.class);
+        injectionsListView.setAdapter(injectionsListAdapter);
+    }
+    private void initialiseGridView(){
+        grid = fragView.findViewById(R.id.injections_grid_view);
+        injectionsGridView = (RecyclerView) grid.findViewById(R.id.swipe_grid_view);
+        gridAdapter = new CardAdapter(getActivity(), injectionStationList,InjectionStation.class);
+        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(),2);
+        injectionsGridView.setLayoutManager(mLayoutManager);
+        injectionsGridView.addItemDecoration(new GridSpacingItemDecoration(2,dpToPx(10),true));
+        injectionsGridView.setItemAnimator(new DefaultItemAnimator());
+        injectionsGridView.setAdapter(gridAdapter);
+
+    }
+
     private void prepareStations() {
-        InjectionStation a = new InjectionStation();
-        injectionList.add(a);
-
-        InjectionStation b = new InjectionStation();
-        injectionList.add(b);
-
-        InjectionStation c = new InjectionStation();
-        injectionList.add(c);
-
-        InjectionStation d = new InjectionStation();
-        injectionList.add(d);
-
-        InjectionStation e = new InjectionStation();
-        injectionList.add(e);
+        for(int i=0;i<100;i++){
+            InjectionStation inj = new InjectionStation();
+            inj.setName("Injection Station "+i);
+            injectionStationList.add(inj);
+        }
 
 
 
@@ -118,6 +111,26 @@ public class InjectionsFragment extends Fragment {
     }
 
     public void setViewArrangement(ViewType vt){
+        SwipeRefreshLayout listSwipe = (SwipeRefreshLayout) injectionsListView.getParent();
+        SwipeRefreshLayout gridSwipe = (SwipeRefreshLayout) injectionsGridView.getParent();
+        switch(vt){
+            case LIST:
+                listSwipe.setRefreshing(false);
+                gridSwipe.setRefreshing(false);
+                Toast.makeText(getActivity(),"List",Toast.LENGTH_SHORT).show();
+                switcher.showPrevious();
+                break;
+
+
+
+            case GRID:
+                listSwipe.setRefreshing(false);
+                gridSwipe.setRefreshing(false);
+                Toast.makeText(getActivity(),"Grid",Toast.LENGTH_SHORT).show();
+                switcher.showNext();
+                break;
+
+        }
 
     }
 

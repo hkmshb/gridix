@@ -17,6 +17,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+import android.widget.ViewSwitcher;
 
 
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ public class TransmissionsFragment extends Fragment {
     View fragView;
     ViewType viewType;
     View list,grid;
+    ViewSwitcher switcher;
     ArrayList<TransmissionStation> transmissionStationList = new ArrayList<TransmissionStation>();
     RelativeLayout rootLayout;
     //Grid setup
@@ -60,19 +62,17 @@ public class TransmissionsFragment extends Fragment {
         viewType = (ViewType) getArguments().getSerializable("view_type");
         fragView= inflater.inflate(R.layout.fragment_transmissions,container,false);
         rootLayout = (RelativeLayout) fragView.findViewById(R.id.transmission_root);
+        switcher = (ViewSwitcher) fragView.findViewById(R.id.trans_switcher);
         initialiseListView();
         initialiseGridView();
         switch(viewType){
             case LIST:
-                grid.setVisibility(View.GONE);
-                list.setVisibility(View.VISIBLE);
                 break;
 
 
 
             case GRID:
-                list.setVisibility(View.GONE);
-                grid.setVisibility(View.VISIBLE);
+                switcher.showNext();
                 break;
 
 
@@ -105,8 +105,7 @@ public class TransmissionsFragment extends Fragment {
                 listSwipe.setRefreshing(false);
                 gridSwipe.setRefreshing(false);
                 Toast.makeText(getActivity(),"List",Toast.LENGTH_SHORT).show();
-                grid.setVisibility(View.GONE);
-                list.setVisibility(View.VISIBLE);
+                switcher.showPrevious();
                 break;
 
 
@@ -115,8 +114,7 @@ public class TransmissionsFragment extends Fragment {
                 listSwipe.setRefreshing(false);
                 gridSwipe.setRefreshing(false);
                 Toast.makeText(getActivity(),"Grid",Toast.LENGTH_SHORT).show();
-                list.setVisibility(View.GONE);
-                grid.setVisibility(View.VISIBLE);
+                switcher.showNext();
                 break;
 
         }

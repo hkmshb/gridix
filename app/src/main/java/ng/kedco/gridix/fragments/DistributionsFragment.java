@@ -15,9 +15,9 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+import android.widget.ViewSwitcher;
 
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import ng.kedco.gridix.R;
@@ -32,19 +32,25 @@ import ng.kedco.gridix.decorators.GridSpacingItemDecoration;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DistributionsFragment extends Fragment implements Serializable{
-    private ArrayList<DistributionSubstation> distributionSubstationList = new ArrayList<DistributionSubstation>();
-    private ViewType viewType;
+public class DistributionsFragment extends Fragment {
+    //general setup
+    View fragView;
+    ViewType viewType;
+    View list,grid;
+    ViewSwitcher switcher;
+    ArrayList<DistributionSubstation> distroStationList = new ArrayList<DistributionSubstation>();
+    RelativeLayout rootLayout;
     //Grid setup
-    private RecyclerView recyclerView;
-    private ng.kedco.gridix.adapters.CardAdapter gridAdapter;
-    //list setup
-    private ListView distroListView;
-    private ListItemAdapter distroListAdapter;
+    RecyclerView distroGridView;
+    CardAdapter gridAdapter;
+    //List setup
+    ListView distroListView;
+    ListItemAdapter distroListAdapter;
 
 
     public DistributionsFragment() {
         // Required empty public constructor
+        prepareStations();
     }
 
 
@@ -52,65 +58,48 @@ public class DistributionsFragment extends Fragment implements Serializable{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         viewType = (ViewType) getArguments().getSerializable("view_type");
-        View fragView = inflater.inflate(R.layout.fragment_distributions,container,false);
-        SwipeRefreshLayout rootLayout = (SwipeRefreshLayout) fragView.findViewById(R.id.distro_root);
-        rootLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                Toast.makeText(getActivity(),"Distro refreshed",Toast.LENGTH_SHORT).show();
-            }
-        });
-        SwipeRefreshLayout.LayoutParams lp = new SwipeRefreshLayout.LayoutParams(SwipeRefreshLayout.LayoutParams.MATCH_PARENT,
-                SwipeRefreshLayout.LayoutParams.MATCH_PARENT);
+        fragView= inflater.inflate(R.layout.fragment_distributions,container,false);
+        rootLayout = (RelativeLayout) fragView.findViewById(R.id.distro_root);
+        switcher = (ViewSwitcher) fragView.findViewById(R.id.distro_switcher);
+        initialiseListView();
+        initialiseGridView();
         switch(viewType){
             case LIST:
-                distroListView = new ListView(getActivity());
-                distroListAdapter = new ListItemAdapter(getActivity(),distributionSubstationList,DistributionSubstation.class);
-                distroListView.setAdapter(distroListAdapter);
-                rootLayout.removeAllViews();
-                rootLayout.addView(distroListView,lp);
-                prepareStations();
-                distroListAdapter.notifyDataSetChanged();
                 break;
             case GRID:
-                recyclerView = new RecyclerView(getActivity());
-                gridAdapter = new CardAdapter(getActivity(), distributionSubstationList,DistributionSubstation.class);
-                RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(),2);
-                recyclerView.setLayoutManager(mLayoutManager);
-                recyclerView.addItemDecoration(new GridSpacingItemDecoration(2,dpToPx(10),true));
-                recyclerView.setItemAnimator(new DefaultItemAnimator());
-                recyclerView.setAdapter(gridAdapter);
-                rootLayout.removeAllViews();
-                rootLayout.addView(recyclerView,lp);
-                prepareStations();
-                gridAdapter.notifyDataSetChanged();
+                switcher.showNext();
                 break;
         }
-
 
         return fragView;
     }
 
+    private void initialiseListView() {
+        list = fragView.findViewById(R.id.distro_list_view);
+        distroListView = (ListView) list.findViewById(R.id.swipe_list_view);
+        distroListAdapter = new ListItemAdapter(getActivity(),distroStationList,DistributionSubstation.class);
+        distroListView.setAdapter(distroListAdapter);
+    }
+    private void initialiseGridView(){
+        grid = fragView.findViewById(R.id.distro_grid_view);
+        distroGridView = (RecyclerView) grid.findViewById(R.id.swipe_grid_view);
+        gridAdapter = new CardAdapter(getActivity(), distroStationList,DistributionSubstation.class);
+        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(),2);
+        distroGridView.setLayoutManager(mLayoutManager);
+        distroGridView.addItemDecoration(new GridSpacingItemDecoration(2,dpToPx(10),true));
+        distroGridView.setItemAnimator(new DefaultItemAnimator());
+        distroGridView.setAdapter(gridAdapter);
+
+    }
+
     private void prepareStations() {
-        DistributionSubstation a = new DistributionSubstation();
-        a.setName("Distribution One");
-        distributionSubstationList.add(a);
+        for(int i=0;i<100;i++){
+            DistributionSubstation dis = new DistributionSubstation();
+            dis.setName("Injection Station "+i);
+            distroStationList.add(dis);
+        }
 
-        DistributionSubstation b = new DistributionSubstation();
-        b.setName("Distribution Two");
-        distributionSubstationList.add(b);
 
-        DistributionSubstation c = new DistributionSubstation();
-        c.setName("Distribution Three");
-        distributionSubstationList.add(c);
-
-        DistributionSubstation d = new DistributionSubstation();
-        d.setName("Distribution Four");
-        distributionSubstationList.add(d);
-
-        DistributionSubstation e = new DistributionSubstation();
-        e.setName("Distribution Five");
-        distributionSubstationList.add(e);
 
 
 
@@ -122,6 +111,26 @@ public class DistributionsFragment extends Fragment implements Serializable{
     }
 
     public void setViewArrangement(ViewType vt){
+        SwipeRefreshLayout listSwipe = (SwipeRefreshLayout) distroListView.getParent();
+        SwipeRefreshLayout gridSwipe = (SwipeRefreshLayout) distroGridView.getParent();
+        switch(vt){
+            case LIST:
+                listSwipe.setRefreshing(false);
+                gridSwipe.setRefreshing(false);
+                Toast.makeText(getActivity(),"List",Toast.LENGTH_SHORT).show();
+                switcher.showPrevious();
+                break;
+
+
+
+            case GRID:
+                listSwipe.setRefreshing(false);
+                gridSwipe.setRefreshing(false);
+                Toast.makeText(getActivity(),"Grid",Toast.LENGTH_SHORT).show();
+                switcher.showNext();
+                break;
+
+        }
 
     }
 

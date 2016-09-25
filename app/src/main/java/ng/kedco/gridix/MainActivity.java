@@ -109,15 +109,15 @@ public class MainActivity extends AppCompatActivity {
             case R.id.show_items_in_list_option:
                 selectedViewOption = ViewType.LIST;
                 for(Fragment fg: fm.getFragments()){
-                    if(fg.isVisible() && fg.getTag()==FragmentTags.TRANSMISSION.toString()){
+                    if(fg!=null && fg.isVisible() && fg.getTag()==FragmentTags.TRANSMISSION.toString()){
                         TransmissionsFragment tfg = (TransmissionsFragment) fg;
                         tfg.setViewArrangement(selectedViewOption);
                     }
-                    else if(fg.isVisible() && fg.getTag()==FragmentTags.DISTRIBUTION.toString()){
+                    else if(fg!=null && fg.isVisible() && fg.getTag()==FragmentTags.DISTRIBUTION.toString()){
                         DistributionsFragment dfg = (DistributionsFragment) fg;
                         dfg.setViewArrangement(selectedViewOption);
                     }
-                    else if(fg.isVisible() && fg.getTag()==FragmentTags.INJECTION.toString()){
+                    else if(fg!=null && fg.isVisible() && fg.getTag()==FragmentTags.INJECTION.toString()){
                         InjectionsFragment ifg = (InjectionsFragment) fg;
                         ifg.setViewArrangement(selectedViewOption);
 
@@ -129,15 +129,15 @@ public class MainActivity extends AppCompatActivity {
             case R.id.show_items_in_grid_option:
                 selectedViewOption = ViewType.GRID;
                 for(Fragment fg: fm.getFragments()){
-                    if(fg.isVisible() && fg.getTag()==FragmentTags.TRANSMISSION.toString()){
+                    if(fg!=null && fg.isVisible() && fg.getTag()==FragmentTags.TRANSMISSION.toString()){
                         TransmissionsFragment tfg = (TransmissionsFragment) fg;
                         tfg.setViewArrangement(selectedViewOption);
                     }
-                    else if(fg.isVisible() && fg.getTag()==FragmentTags.DISTRIBUTION.toString()){
+                    else if(fg!=null && fg.isVisible() && fg.getTag()==FragmentTags.DISTRIBUTION.toString()){
                         DistributionsFragment dfg = (DistributionsFragment) fg;
                         dfg.setViewArrangement(selectedViewOption);
                     }
-                    else if(fg.isVisible() && fg.getTag()==FragmentTags.INJECTION.toString()){
+                    else if(fg != null && fg.isVisible() && fg.getTag()==FragmentTags.INJECTION.toString()){
                         InjectionsFragment ifg = (InjectionsFragment) fg;
                         ifg.setViewArrangement(selectedViewOption);
 
