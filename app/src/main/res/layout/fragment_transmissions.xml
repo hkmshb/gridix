@@ -4,29 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/transmission_rll"
+    android:id="@+id/transmission_root"
     tools:context=".fragments.TransmissionsFragment">
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:layout_width="match_parent"
+    <include
+        layout="@layout/list_view"
+        android:id="@+id/transmission_list_view"
         android:layout_height="match_parent"
-        android:id="@+id/transmission_root">
+        android:layout_width="match_parent"
+        android:visibility="gone"/>
 
+    <include
+        layout="@layout/grid_view"
+        android:id="@+id/transmission_grid_view"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:visibility="gone"/>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <ListView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/trans_list_view"
-                android:visibility="gone"/>
-            <android.support.v7.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/trans_grid_view"
-                android:visibility="gone"/>
-        </RelativeLayout>
-
-
-    </android.support.v4.widget.SwipeRefreshLayout>
 </RelativeLayout>

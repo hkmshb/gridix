@@ -33,11 +33,14 @@ import ng.kedco.gridix.decorators.GridSpacingItemDecoration;
  * A simple {@link Fragment} subclass.
  */
 public class TransmissionsFragment extends Fragment {
+    //general setup
+    View fragView;
     ViewType viewType;
+    View list,grid;
     ArrayList<TransmissionStation> transmissionStationList = new ArrayList<TransmissionStation>();
-    SwipeRefreshLayout rootLayout;
+    RelativeLayout rootLayout;
     //Grid setup
-    RecyclerView recyclerView;
+    RecyclerView transGridView;
     CardAdapter gridAdapter;
     //List setup
     ListView transListView;
@@ -46,6 +49,7 @@ public class TransmissionsFragment extends Fragment {
 
     public TransmissionsFragment() {
         // Required empty public constructor
+        prepareTransmissions();
 
     }
 
@@ -54,33 +58,21 @@ public class TransmissionsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         viewType = (ViewType) getArguments().getSerializable("view_type");
-        View fragView= inflater.inflate(R.layout.fragment_transmissions,container,false);
-        rootLayout = (SwipeRefreshLayout) fragView.findViewById(R.id.transmission_root);
-        transListView = (ListView) fragView.findViewById(R.id.trans_list_view);
-        recyclerView = (RecyclerView) fragView.findViewById(R.id.trans_grid_view);
+        fragView= inflater.inflate(R.layout.fragment_transmissions,container,false);
+        rootLayout = (RelativeLayout) fragView.findViewById(R.id.transmission_root);
+        initialiseListView();
+        initialiseGridView();
         switch(viewType){
             case LIST:
-                recyclerView.setVisibility(View.GONE);
-                transListView.setVisibility(View.VISIBLE);
-                transListAdapter = new ListItemAdapter(getActivity(),transmissionStationList,TransmissionStation.class);
-                transListView.setAdapter(transListAdapter);
-                prepareTransmissions();
-                transListAdapter.notifyDataSetChanged();
+                grid.setVisibility(View.GONE);
+                list.setVisibility(View.VISIBLE);
                 break;
 
 
 
             case GRID:
-                transListView.setVisibility(View.GONE);
-                recyclerView.setVisibility(View.VISIBLE);
-                gridAdapter = new CardAdapter(getActivity(), transmissionStationList,TransmissionStation.class);
-                RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(),2);
-                recyclerView.setLayoutManager(mLayoutManager);
-                recyclerView.addItemDecoration(new GridSpacingItemDecoration(2,dpToPx(10),true));
-                recyclerView.setItemAnimator(new DefaultItemAnimator());
-                recyclerView.setAdapter(gridAdapter);
-                prepareTransmissions();
-                gridAdapter.notifyDataSetChanged();
+                list.setVisibility(View.GONE);
+                grid.setVisibility(View.VISIBLE);
                 break;
 
 
@@ -90,25 +82,11 @@ public class TransmissionsFragment extends Fragment {
     }
 
     private void prepareTransmissions() {
-        TransmissionStation a = new TransmissionStation();
-        a.setName("TransmissionStation One");
-        transmissionStationList.add(a);
-
-        TransmissionStation b = new TransmissionStation();
-        b.setName("TransmissionStation Two");
-        transmissionStationList.add(b);
-
-        TransmissionStation c = new TransmissionStation();
-        c.setName("TransmissionStation Three");
-        transmissionStationList.add(c);
-
-        TransmissionStation d = new TransmissionStation();
-        d.setName("TransmissionStation Four");
-        transmissionStationList.add(d);
-
-        TransmissionStation e = new TransmissionStation();
-        e.setName("TransmissionStation Five");
-        transmissionStationList.add(e);
+        for(int i=0;i<100;i++){
+            TransmissionStation t = new TransmissionStation();
+            t.setName("Transmission "+i);
+            transmissionStationList.add(t);
+        }
 
 
 
@@ -120,37 +98,49 @@ public class TransmissionsFragment extends Fragment {
     }
 
     public void setViewArrangement(ViewType vt){
-        rootLayout.setRefreshing(false);
+        SwipeRefreshLayout listSwipe = (SwipeRefreshLayout) transListView.getParent();
+        SwipeRefreshLayout gridSwipe = (SwipeRefreshLayout) transGridView.getParent();
         switch(vt){
             case LIST:
+                listSwipe.setRefreshing(false);
+                gridSwipe.setRefreshing(false);
                 Toast.makeText(getActivity(),"List",Toast.LENGTH_SHORT).show();
-                recyclerView.setVisibility(View.GONE);
-                transListView.setVisibility(View.VISIBLE);
-                transListAdapter = new ListItemAdapter(getActivity(),transmissionStationList,TransmissionStation.class);
-                transListView.setAdapter(transListAdapter);
-                prepareTransmissions();
-                transListAdapter.notifyDataSetChanged();
+                grid.setVisibility(View.GONE);
+                list.setVisibility(View.VISIBLE);
                 break;
 
 
 
             case GRID:
+                listSwipe.setRefreshing(false);
+                gridSwipe.setRefreshing(false);
                 Toast.makeText(getActivity(),"Grid",Toast.LENGTH_SHORT).show();
-                transListView.setVisibility(View.GONE);
-                recyclerView.setVisibility(View.VISIBLE);
-                gridAdapter = new CardAdapter(getActivity(), transmissionStationList,TransmissionStation.class);
-                RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(),2);
-                recyclerView.setLayoutManager(mLayoutManager);
-                recyclerView.addItemDecoration(new GridSpacingItemDecoration(2,dpToPx(10),true));
-                recyclerView.setItemAnimator(new DefaultItemAnimator());
-                recyclerView.setAdapter(gridAdapter);
-                prepareTransmissions();
-                gridAdapter.notifyDataSetChanged();
+                list.setVisibility(View.GONE);
+                grid.setVisibility(View.VISIBLE);
                 break;
 
         }
 
     }
 
+    private void initialiseListView(){
+        list = fragView.findViewById(R.id.transmission_list_view);
+        transListView = (ListView) list.findViewById(R.id.swipe_list_view);
+        transListAdapter = new ListItemAdapter(getActivity(),transmissionStationList,TransmissionStation.class);
+        transListView.setAdapter(transListAdapter);
+
+    }
+
+    private void initialiseGridView(){
+        grid = fragView.findViewById(R.id.transmission_grid_view);
+        transGridView = (RecyclerView) grid.findViewById(R.id.swipe_grid_view);
+
+        gridAdapter = new CardAdapter(getActivity(), transmissionStationList,TransmissionStation.class);
+        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(),2);
+        transGridView.setLayoutManager(mLayoutManager);
+        transGridView.addItemDecoration(new GridSpacingItemDecoration(2,dpToPx(10),true));
+        transGridView.setItemAnimator(new DefaultItemAnimator());
+        transGridView.setAdapter(gridAdapter);
+    }
 
 }
