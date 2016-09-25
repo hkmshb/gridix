@@ -1,4 +1,4 @@
-package ng.kedco.gridix.fragments.list;
+package ng.kedco.gridix.fragments;
 
 
 import android.os.Bundle;
@@ -7,16 +7,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import ng.kedco.gridix.R;
+import java.io.Serializable;
 
+import ng.kedco.gridix.R;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TransmissionsListFragment extends Fragment {
+public class FeederElevenFragment extends Fragment implements Serializable{
 
 
-    public TransmissionsListFragment() {
+    public FeederElevenFragment() {
         // Required empty public constructor
     }
 
@@ -25,7 +26,7 @@ public class TransmissionsListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_transmissions_list, container, false);
+        return inflater.inflate(R.layout.fragment_feeder11, container, false);
     }
 
 }

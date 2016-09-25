@@ -69,7 +69,7 @@ public class ListItemAdapter extends BaseAdapter {
         }
         else if(aClass == InjectionStation.class){
             InjectionStation a = (InjectionStation) stations.get(i);
-            itemImage.setBackgroundResource(R.drawable.trans_sample);
+            itemImage.setBackgroundResource(R.drawable.album2);
             itemName.setText(a.getName());
             infoImg.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -80,7 +80,7 @@ public class ListItemAdapter extends BaseAdapter {
         }
         else if(aClass == DistributionSubstation.class){
             DistributionSubstation d = (DistributionSubstation) stations.get(i);
-            itemImage.setBackgroundResource(R.drawable.trans_sample);
+            itemImage.setBackgroundResource(R.drawable.album3);
             itemName.setText(d.getName());
             infoImg.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -1,6 +1,7 @@
 package ng.kedco.gridix;
 
 import android.content.res.Configuration;
+import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -13,17 +14,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
-import ng.kedco.gridix.fragments.grid.DistributionsFragment;
-import ng.kedco.gridix.fragments.grid.FeederFragment;
-import ng.kedco.gridix.fragments.grid.UpriserFragment;
-import ng.kedco.gridix.fragments.list.DistributionsListFragment;
-import ng.kedco.gridix.fragments.grid.InjectionsFragment;
-import ng.kedco.gridix.fragments.list.FeederListFragment;
-import ng.kedco.gridix.fragments.list.InjectionsListFragment;
-import ng.kedco.gridix.fragments.grid.TransmissionsFragment;
-import ng.kedco.gridix.fragments.list.TransmissionsListFragment;
-import ng.kedco.gridix.fragments.list.UpriserListFragment;
+import ng.kedco.gridix.enums.FragmentTags;
+import ng.kedco.gridix.enums.ViewType;
+import ng.kedco.gridix.fragments.DistributionsFragment;
+import ng.kedco.gridix.fragments.FeederThirtyThreeFragment;
+import ng.kedco.gridix.fragments.FeederElevenFragment;
+import ng.kedco.gridix.fragments.InjectionsFragment;
+import ng.kedco.gridix.fragments.TestFragment;
+import ng.kedco.gridix.fragments.TransmissionsFragment;
+
 
 
 public class MainActivity extends AppCompatActivity {
@@ -31,15 +32,16 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
     NavigationView nvDrawer;
     ActionBarDrawerToggle drawerToggle;
-    int selectedViewOption;
+    ViewType selectedViewOption;
     Class currentDisplayClass;
+    FragmentManager fm;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        fm = getSupportFragmentManager();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -55,9 +57,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initialiseActivity() {
-        selectedViewOption = 1;
-        currentDisplayClass = TransmissionsListFragment.class;
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new TransmissionsListFragment()).commit();
+        selectedViewOption = ViewType.LIST;
+        currentDisplayClass = TransmissionsFragment.class;
+        TransmissionsFragment tf = new TransmissionsFragment();
+        Bundle tfargs = new Bundle();
+        tfargs.putSerializable("view_type",selectedViewOption);
+        tf.setArguments(tfargs);
+        fm.beginTransaction().replace(R.id.frame_container,tf, FragmentTags.TRANSMISSION.toString()).commit();
         setTitle("TransmissionStation Stations");
     }
 
@@ -93,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         item.setChecked(true);
         int id = item.getItemId();
         if(drawerToggle.onOptionsItemSelected(item)){
@@ -100,57 +107,49 @@ public class MainActivity extends AppCompatActivity {
         }
         switch(id){
             case R.id.show_items_in_list_option:
-                selectedViewOption = 1;
-                if(currentDisplayClass == TransmissionsFragment.class){
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new TransmissionsListFragment()).commit();
-                    currentDisplayClass = TransmissionsListFragment.class;
+                selectedViewOption = ViewType.LIST;
+                for(Fragment fg: fm.getFragments()){
+                    if(fg.isVisible() && fg.getTag()==FragmentTags.TRANSMISSION.toString()){
+                        TransmissionsFragment tfg = (TransmissionsFragment) fg;
+                        tfg.setViewArrangement(selectedViewOption);
+                    }
+                    else if(fg.isVisible() && fg.getTag()==FragmentTags.DISTRIBUTION.toString()){
+                        DistributionsFragment dfg = (DistributionsFragment) fg;
+                        dfg.setViewArrangement(selectedViewOption);
+                    }
+                    else if(fg.isVisible() && fg.getTag()==FragmentTags.INJECTION.toString()){
+                        InjectionsFragment ifg = (InjectionsFragment) fg;
+                        ifg.setViewArrangement(selectedViewOption);
+
+
+                    }
                 }
-                else if(currentDisplayClass == DistributionsFragment.class){
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new DistributionsListFragment()).commit();
-                    currentDisplayClass = DistributionsListFragment.class;
-                }
-                else if(currentDisplayClass == InjectionsFragment.class){
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new InjectionsListFragment()).commit();
-                    currentDisplayClass = InjectionsListFragment.class;
-                }
-                else if(currentDisplayClass == FeederFragment.class){
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new FeederListFragment()).commit();
-                    currentDisplayClass = FeederListFragment.class;
-                }
-                else if(currentDisplayClass == UpriserFragment.class){
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new UpriserListFragment()).commit();
-                    currentDisplayClass = UpriserListFragment.class;
-                }
+
                 return true;
             case R.id.show_items_in_grid_option:
-                selectedViewOption = 2;
-                if(currentDisplayClass == TransmissionsListFragment.class){
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new TransmissionsFragment()).commit();
-                    currentDisplayClass = TransmissionsFragment.class;
-                }
-                else if(currentDisplayClass == DistributionsListFragment.class){
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new DistributionsFragment()).commit();
-                    currentDisplayClass = DistributionsFragment.class;
-                }
-                else if(currentDisplayClass == InjectionsListFragment.class){
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new InjectionsFragment()).commit();
-                    currentDisplayClass = InjectionsFragment.class;
-                }
-                else if(currentDisplayClass == FeederListFragment.class){
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new FeederFragment()).commit();
-                    currentDisplayClass = FeederFragment.class;
-                }
-                else if(currentDisplayClass == UpriserListFragment.class){
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new UpriserFragment()).commit();
-                    currentDisplayClass = UpriserFragment.class;
+                selectedViewOption = ViewType.GRID;
+                for(Fragment fg: fm.getFragments()){
+                    if(fg.isVisible() && fg.getTag()==FragmentTags.TRANSMISSION.toString()){
+                        TransmissionsFragment tfg = (TransmissionsFragment) fg;
+                        tfg.setViewArrangement(selectedViewOption);
+                    }
+                    else if(fg.isVisible() && fg.getTag()==FragmentTags.DISTRIBUTION.toString()){
+                        DistributionsFragment dfg = (DistributionsFragment) fg;
+                        dfg.setViewArrangement(selectedViewOption);
+                    }
+                    else if(fg.isVisible() && fg.getTag()==FragmentTags.INJECTION.toString()){
+                        InjectionsFragment ifg = (InjectionsFragment) fg;
+                        ifg.setViewArrangement(selectedViewOption);
+
+
+                    }
                 }
                 return true;
         }
 
+
         return super.onOptionsItemSelected(item);
     }
-
-
 
 
     public void setUpDrawerContent(NavigationView nview) {
@@ -170,53 +169,56 @@ public class MainActivity extends AppCompatActivity {
         Fragment fragment = null;
         int id = item.getItemId();
         setViewArrangement(selectedViewOption,id);
+        String ftag="";
         try{
             fragment = (Fragment) currentDisplayClass.newInstance();
+            Bundle fragArgs = new Bundle();
+            fragArgs.putSerializable("view_type",selectedViewOption);
+            fragment.setArguments(fragArgs);
         }catch(Exception e){
 
         }
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.frame_container,fragment).commit();
+        if(fragment instanceof TransmissionsFragment){
+            ftag = FragmentTags.TRANSMISSION.toString();
+        }
+        else if(fragment instanceof InjectionsFragment){
+            ftag = FragmentTags.INJECTION.toString();
+        }
+        else if(fragment instanceof DistributionsFragment){
+            ftag = FragmentTags.DISTRIBUTION.toString();
+        }
+        fm.beginTransaction().replace(R.id.frame_container,fragment,ftag).commit();
         item.setChecked(true);
         setTitle(item.getTitle());
         mDrawerLayout.closeDrawers();
 
     }
 
-    private void setViewArrangement(int selcectedViewOption, int id) {
-        if(selcectedViewOption == 1 && id == R.id.nav_menu_transmission){
-            currentDisplayClass = TransmissionsListFragment.class;
-        }
-        else if(selcectedViewOption == 2 && id == R.id.nav_menu_transmission){
+    private void setViewArrangement(ViewType selcectedViewOption, int id) {
+        if(id == R.id.nav_menu_transmission){
             currentDisplayClass = TransmissionsFragment.class;
-
         }
-        else if(selcectedViewOption == 1 && id == R.id.nav_menu_injection){
-            currentDisplayClass = InjectionsListFragment.class;
-        }
-        else if(selcectedViewOption == 2 && id == R.id.nav_menu_injection){
+        else if( id == R.id.nav_menu_injection){
             currentDisplayClass = InjectionsFragment.class;
+        }
 
-        }
-        else if(selcectedViewOption == 1 && id == R.id.nav_menu_distribution){
-            currentDisplayClass = DistributionsListFragment.class;
-        }
-        else if(selcectedViewOption == 2 && id == R.id.nav_menu_distribution){
+        else if(id == R.id.nav_menu_distribution){
             currentDisplayClass = DistributionsFragment.class;
+        }
+        else if(id == R.id.nav_menu_feeder_33){
+            currentDisplayClass = FeederThirtyThreeFragment.class;
+        }
+        else if(id==R.id.nav_menu_feeder_11){
+            currentDisplayClass = FeederElevenFragment.class;
+        }
+        else if(id==R.id.nav_menu_test){
+            currentDisplayClass = TestFragment.class;
+        }
 
-        }
-        else if(selcectedViewOption == 1 && id == R.id.nav_menu_feeder_33){
-            currentDisplayClass = FeederListFragment.class;
-        }
-        else if(selcectedViewOption == 2 && id == R.id.nav_menu_feeder_33){
-            currentDisplayClass = FeederFragment.class;
-        }
-        else if(selcectedViewOption == 1 && id==R.id.nav_menu_feeder_11){
-            currentDisplayClass = UpriserListFragment.class;
-        }
-        else if(selcectedViewOption == 2 && id==R.id.nav_menu_feeder_11){
-            currentDisplayClass = UpriserFragment.class;
-        }
     }
+
+
+
+
 
 }

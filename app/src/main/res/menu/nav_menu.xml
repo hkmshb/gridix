@@ -37,5 +37,19 @@
         </menu>
     </item>
 
+    <!--Remove this item-->
+    <item
+        android:title="Remember to Remove This">
+        <menu>
+            <group
+                android:checkableBehavior="single">
+                <item
+                    android:title="test"
+                    android:checked="false"
+                    android:id="@+id/nav_menu_test"/>
+            </group>
+        </menu>
+    </item>
+
 
 </menu>
