@@ -3,7 +3,7 @@ package ng.kedco.gridix.models;
 /**
  * Created by shaibujnr on 8/27/16.
  */
-public class Manufacturer extends Entity {
+public class Manufacturer extends BaseEntity {
     private String name;
     private String email;
     private String location;

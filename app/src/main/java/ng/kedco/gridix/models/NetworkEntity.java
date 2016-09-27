@@ -3,8 +3,20 @@ package ng.kedco.gridix.models;
 /**
  * Created by shaibujnr on 8/27/16.
  */
-public abstract class NetworkEntity extends Entity {
+public abstract class NetworkEntity extends TimeStampedEntity {
+    private String code;
     private String altCode;
+
+
+
+    public String getCode() {
+        return code;
+    }
+
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 
     public String getAltCode() {
         return altCode;

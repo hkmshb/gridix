@@ -9,8 +9,6 @@ import java.util.ArrayList;
 
 public class TransmissionStation extends PowerStation{
 
-    @Override
-    public void setSourceFeeder(String sourceFeeder) {
 
-    }
+
 }
