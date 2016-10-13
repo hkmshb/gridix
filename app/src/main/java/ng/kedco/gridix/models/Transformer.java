@@ -2,7 +2,7 @@ package ng.kedco.gridix.models;
 
 import java.security.InvalidParameterException;
 
-import ng.kedco.gridix.exceptions.InvalidTransformerVoltageRatio;
+
 
 /**
  * Created by shaibujnr on 8/28/16.

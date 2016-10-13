@@ -2,6 +2,12 @@
 <menu
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        app:showAsAction="collapseActionView|ifRoom"
+        android:icon="@android:drawable/ic_menu_search"
+        android:id="@+id/search"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        android:title="Search" />
 
     <group
         android:checkableBehavior="single">
@@ -15,6 +21,11 @@
             android:title="GridView"
             android:id="@+id/show_items_in_grid_option"/>
     </group>
+
+    <item
+        android:title="Settings"
+        android:checkable="false"
+        android:id="@+id/settings"/>
 
 
 </menu>

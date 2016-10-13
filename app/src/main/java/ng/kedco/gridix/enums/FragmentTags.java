@@ -23,5 +23,19 @@ public enum FragmentTags {
         public String toString() {
             return "distribution_fragment_tag";
         }
+    },
+
+    FEEDERTT{
+      @Override
+        public String toString(){return "feeder33_fragment_tag";}
+    },
+
+    FEEDERELV{
+        @Override
+        public String toString() {
+            return "feeder11_fragment_tag";
+        }
     }
+
+
 }

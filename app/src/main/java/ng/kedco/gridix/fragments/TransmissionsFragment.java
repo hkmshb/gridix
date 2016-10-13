@@ -2,6 +2,7 @@ package ng.kedco.gridix.fragments;
 
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.database.DataSetObserver;
 import android.os.AsyncTask;
@@ -37,9 +38,11 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import ng.kedco.gridix.GridixApplication;
+import ng.kedco.gridix.ItemInfoActivity;
 import ng.kedco.gridix.R;
 import ng.kedco.gridix.adapters.CardAdapter;
 import ng.kedco.gridix.adapters.ListItemAdapter;
+import ng.kedco.gridix.enums.Status;
 import ng.kedco.gridix.enums.ViewType;
 import ng.kedco.gridix.helpers.ConnectivtyHelper;
 import ng.kedco.gridix.helpers.Holder;
@@ -56,7 +59,7 @@ import ng.kedco.gridix.decorators.GridSpacingItemDecoration;
 public class TransmissionsFragment extends Fragment {
     //general setup
     ConnectivtyHelper connectivtyHelper;
-    JsonHelper jsonHelper= new JsonHelper();
+    JsonHelper jsonHelper;
     Holder holder = Holder.getInstance();
     View fragView;
     ViewType viewType;
@@ -82,6 +85,7 @@ public class TransmissionsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        jsonHelper = new JsonHelper(getActivity());
         viewType = (ViewType) getArguments().getSerializable("view_type");
         fragView= inflater.inflate(R.layout.fragment_transmissions,container,false);
         connectivtyHelper = new ConnectivtyHelper(getActivity());
@@ -187,7 +191,7 @@ public class TransmissionsFragment extends Fragment {
         transListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                displayActivity(transmissionStationList.get(i));
+                displayActivity(i);
             }
         });
 
@@ -202,21 +206,28 @@ public class TransmissionsFragment extends Fragment {
         transGridView.addItemDecoration(new GridSpacingItemDecoration(2,dpToPx(10),true));
         transGridView.setItemAnimator(new DefaultItemAnimator());
         transGridView.setAdapter(gridAdapter);
-    }
-
-    private void displayActivity(TransmissionStation ts){
 
     }
 
-    public class GetStations extends AsyncTask<String,Void,String> {
+    private void displayActivity(int pos){
+        Intent intent = new Intent(getActivity(), ItemInfoActivity.class);
+        intent.putExtra("clicked_item",pos);
+        intent.putExtra("from","trans");
+        startActivity(intent);
+
+
+    }
+
+
+    public class GetStations extends AsyncTask<String,Void,Status> {
         String result;
         SwipeRefreshLayout swl;
 
         GetStations(SwipeRefreshLayout sl){this.swl = sl;}
         @Override
-        protected String doInBackground(String... strings) {
-            jsonHelper.updateStationsList();
-            return result;
+        protected ng.kedco.gridix.enums.Status doInBackground(String... strings) {
+            ng.kedco.gridix.enums.Status stats = jsonHelper.updateStationsList(Station.StationType.TRANSMISSION);
+            return stats;
 
         }
 
@@ -227,13 +238,20 @@ public class TransmissionsFragment extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(String s) {
+        protected void onPostExecute(ng.kedco.gridix.enums.Status s) {
             super.onPostExecute(s);
-            Toast.makeText(getActivity(),""+transmissionStationList.size()+" not empty",Toast.LENGTH_SHORT).show();
-            transmissionStationList = holder.getTransmissionStations();
-            transListAdapter.notifyDataSetChanged();
-            gridAdapter.notifyDataSetChanged();
-            swl.setRefreshing(false);
+            switch (s){
+                case SUCESS:
+                    transmissionStationList = holder.getTransmissionStations();
+                    transListAdapter.notifyDataSetChanged();
+                    gridAdapter.notifyDataSetChanged();
+                    swl.setRefreshing(false);
+                    break;
+                case FAILED:
+                    Toast.makeText(getActivity(),"Error in connection",Toast.LENGTH_SHORT).show();
+                    swl.setRefreshing(false);
+
+            }
 
         }
     }

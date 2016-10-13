@@ -1,12 +1,13 @@
 package ng.kedco.gridix.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by shaibujnr on 8/17/16.
  */
 
-public class InjectionStation extends PowerStation {
+public class InjectionStation extends PowerStation{
     private boolean isPublic;
 
     public boolean isPublic() {

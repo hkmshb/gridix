@@ -1,5 +1,7 @@
 package ng.kedco.gridix.models;
 
+import java.io.Serializable;
+
 /**
  * Created by shaibujnr on 8/17/16.
  */

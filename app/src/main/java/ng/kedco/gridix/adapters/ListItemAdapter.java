@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import ng.kedco.gridix.R;
 import ng.kedco.gridix.models.DistributionSubstation;
 import ng.kedco.gridix.models.InjectionStation;
+import ng.kedco.gridix.models.PowerLine;
 import ng.kedco.gridix.models.TransmissionStation;
 
 /**
@@ -22,23 +23,23 @@ import ng.kedco.gridix.models.TransmissionStation;
 
 public class ListItemAdapter extends BaseAdapter {
     Context callingContext;
-    ArrayList stations;
+    ArrayList entities;
     Class aClass;
     int bri;
 
     public ListItemAdapter(Context c, ArrayList sts,Class cls){
         this.callingContext = c;
-        this.stations = sts;
+        this.entities = sts;
         this.aClass = cls;
     }
     @Override
     public int getCount() {
-        return stations.size();
+        return entities.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return stations.get(i);
+        return entities.get(i);
     }
 
     @Override
@@ -57,7 +58,7 @@ public class ListItemAdapter extends BaseAdapter {
         TextView itemName = (TextView) view.findViewById(R.id.list_item_name);
 
         if(aClass == TransmissionStation.class){
-            TransmissionStation t = (TransmissionStation) stations.get(i);
+            TransmissionStation t = (TransmissionStation) entities.get(i);
             itemImage.setBackgroundResource(R.drawable.trans_sample);
             itemName.setText(t.getName());
             infoImg.setOnClickListener(new View.OnClickListener() {
@@ -68,7 +69,7 @@ public class ListItemAdapter extends BaseAdapter {
             });
         }
         else if(aClass == InjectionStation.class){
-            InjectionStation a = (InjectionStation) stations.get(i);
+            InjectionStation a = (InjectionStation) entities.get(i);
             itemImage.setBackgroundResource(R.drawable.album2);
             itemName.setText(a.getName());
             infoImg.setOnClickListener(new View.OnClickListener() {
@@ -79,13 +80,24 @@ public class ListItemAdapter extends BaseAdapter {
             });
         }
         else if(aClass == DistributionSubstation.class){
-            DistributionSubstation d = (DistributionSubstation) stations.get(i);
+            DistributionSubstation d = (DistributionSubstation) entities.get(i);
             itemImage.setBackgroundResource(R.drawable.album3);
             itemName.setText(d.getName());
             infoImg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Toast.makeText(callingContext,"t dots clicked",Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+        else if(aClass == PowerLine.class){
+            PowerLine pl = (PowerLine) entities.get(i);
+            itemImage.setBackgroundResource(R.drawable.album7);
+            itemName.setText(pl.getName());
+            infoImg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(callingContext,"f33 dots clicked ",Toast.LENGTH_SHORT).show();
                 }
             });
         }

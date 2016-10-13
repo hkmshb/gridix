@@ -43,7 +43,7 @@ public class TestFragment extends Fragment {
     }
 
     private String fetchUpdate(){
-        String surl = GridixApplication.STATIONS_PATH;
+        String surl = GridixApplication.TRANSMISSION_STATION_PATH;
         String result="";
         int responseCode;
         String responseMessage;

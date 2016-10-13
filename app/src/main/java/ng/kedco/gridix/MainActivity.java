@@ -1,5 +1,8 @@
 package ng.kedco.gridix;
 
+import android.app.SearchManager;
+import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
@@ -10,11 +13,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 
 import ng.kedco.gridix.enums.FragmentTags;
 import ng.kedco.gridix.enums.ViewType;
@@ -35,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
     ViewType selectedViewOption;
     Class currentDisplayClass;
     FragmentManager fm;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,13 +68,17 @@ public class MainActivity extends AppCompatActivity {
         tfargs.putSerializable("view_type",selectedViewOption);
         tf.setArguments(tfargs);
         fm.beginTransaction().replace(R.id.frame_container,tf, FragmentTags.TRANSMISSION.toString()).commit();
-        setTitle("TransmissionStation Stations");
+        setTitle("Transmission Stations");
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.settings_menu,menu);
+        //Associate searchable config
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         return true;
     }
 
@@ -120,8 +128,14 @@ public class MainActivity extends AppCompatActivity {
                     else if(fg!=null && fg.isVisible() && fg.getTag()==FragmentTags.INJECTION.toString()){
                         InjectionsFragment ifg = (InjectionsFragment) fg;
                         ifg.setViewArrangement(selectedViewOption);
-
-
+                    }
+                    else if(fg!=null && fg.isVisible() && fg.getTag()==FragmentTags.FEEDERTT.toString()){
+                        FeederThirtyThreeFragment fttfg = (FeederThirtyThreeFragment) fg;
+                        fttfg.setViewArrangement(selectedViewOption);
+                    }
+                    else if(fg!=null && fg.isVisible() && fg.getTag()==FragmentTags.FEEDERELV.toString()){
+                        FeederElevenFragment fefg = (FeederElevenFragment) fg;
+                        fefg.setViewArrangement(selectedViewOption);
                     }
                 }
 
@@ -140,8 +154,14 @@ public class MainActivity extends AppCompatActivity {
                     else if(fg != null && fg.isVisible() && fg.getTag()==FragmentTags.INJECTION.toString()){
                         InjectionsFragment ifg = (InjectionsFragment) fg;
                         ifg.setViewArrangement(selectedViewOption);
-
-
+                    }
+                    else if(fg!=null && fg.isVisible() && fg.getTag()==FragmentTags.FEEDERTT.toString()){
+                        FeederThirtyThreeFragment fttfg = (FeederThirtyThreeFragment) fg;
+                        fttfg.setViewArrangement(selectedViewOption);
+                    }
+                    else if(fg!=null && fg.isVisible() && fg.getTag()==FragmentTags.FEEDERELV.toString()){
+                        FeederElevenFragment fefg = (FeederElevenFragment) fg;
+                        fefg.setViewArrangement(selectedViewOption);
                     }
                 }
                 return true;
@@ -187,6 +207,12 @@ public class MainActivity extends AppCompatActivity {
         else if(fragment instanceof DistributionsFragment){
             ftag = FragmentTags.DISTRIBUTION.toString();
         }
+        else if(fragment instanceof  FeederThirtyThreeFragment){
+            ftag = FragmentTags.FEEDERTT.toString();
+        }
+        else if(fragment instanceof  FeederElevenFragment){
+            ftag = FragmentTags.FEEDERELV.toString();
+        }
         fm.beginTransaction().replace(R.id.frame_container,fragment,ftag).commit();
         item.setChecked(true);
         setTitle(item.getTitle());
@@ -215,6 +241,13 @@ public class MainActivity extends AppCompatActivity {
             currentDisplayClass = TestFragment.class;
         }
 
+    }
+
+    public void displayAcitivity(int pos,String from){
+        Intent intent = new Intent(this, ItemInfoActivity.class);
+        intent.putExtra("clicked_item",pos);
+        intent.putExtra("from",from);
+        startActivity(intent);
     }
 
 

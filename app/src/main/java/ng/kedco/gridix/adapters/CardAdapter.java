@@ -13,9 +13,11 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import ng.kedco.gridix.MainActivity;
 import ng.kedco.gridix.R;
 import ng.kedco.gridix.models.DistributionSubstation;
 import ng.kedco.gridix.models.InjectionStation;
+import ng.kedco.gridix.models.PowerLine;
 import ng.kedco.gridix.models.TransmissionStation;
 
 
@@ -28,15 +30,6 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyHolder> {
     private ArrayList categories;
     private Class categoryType;
     private int card_background_resource;
-
-
-
-
-
-
-
-
-
 
 
     public CardAdapter(Context callingContext, ArrayList cats,Class type) {
@@ -52,16 +45,24 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyHolder> {
     }
 
     @Override
-    public void onBindViewHolder(MyHolder holder, int position) {
+    public void onBindViewHolder(MyHolder holder, final int position) {
         if(categoryType == TransmissionStation.class){
             TransmissionStation transmissionStation = (TransmissionStation) categories.get(position);
             card_background_resource = R.drawable.trans_sample;
             holder.nameLabel.setText(transmissionStation.getName());
             holder.card_background.setBackgroundResource(card_background_resource);
+            holder.card_background.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    MainActivity callingActivity = (MainActivity) callingContext;
+                    callingActivity.displayAcitivity(position,"trans");
+                }
+            });
             holder.card_info_dots.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Toast.makeText(callingContext,"t dots clicked",Toast.LENGTH_SHORT).show();
+
                 }
             });
 
@@ -91,7 +92,17 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyHolder> {
                 }
             });
 
-        }else{
+        }else if(categoryType == PowerLine.class){
+            PowerLine pl = (PowerLine) categories.get(position);
+            card_background_resource = R.drawable.album7;
+            holder.nameLabel.setText(pl.getName());
+            holder.card_background.setBackgroundResource(card_background_resource);
+            holder.card_info_dots.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(callingContext, "f33 grid dots clicked",Toast.LENGTH_SHORT).show();
+                }
+            });
 
         }
 

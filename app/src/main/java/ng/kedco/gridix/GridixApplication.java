@@ -15,11 +15,17 @@ import ng.kedco.gridix.models.TransmissionStation;
 public class GridixApplication extends Application {
     public static final String BASE_URL = "http://utilitrak.hazeltek.com";
     public static final String API_PATH = BASE_URL+"/api/v1/";
-    public static final String STATIONS_PATH = API_PATH+"stations";
-    public static final String POWERLINES_PATH = API_PATH+"powerlines";
 
-    public static ArrayList<TransmissionStation> transmissionStations;
-    public static ArrayList<InjectionStation> injectionStations;
-    public static ArrayList<DistributionSubstation> distributionSubstations;
-    public static ArrayList<Station> stations;
+    public static final String STATIONS_PATH = API_PATH+"stations";
+    public static final String TRANSMISSION_STATION_PATH = STATIONS_PATH+"/?type=1";
+    public static final String INJECTION_STATION_PATH = STATIONS_PATH+"/?type=2";
+    public static final String DISTRIBUTION_STATION_PATH = STATIONS_PATH+"/?type=3";
+
+    public static final String POWERLINES_PATH = API_PATH+"powerlines";
+    public static final String FEEDERS33_PATH =  POWERLINES_PATH+"/?type=1&voltage=3";
+    public static final String FEEDERS11_PATH= POWERLINES_PATH+"/?type=1&voltage=2";
+    public static final String UPRISERS_PATH = POWERLINES_PATH+"?/type=2";
+
+
+
 }
