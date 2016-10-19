@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fragment_title_home">Home</string>
+    <string name="fragment_stations_menu_title">Stations</string>
+    <string name="fragment_feeder_menu_title">Feeders</string>
+    <string name="fragment_title_transmission">Transmission Stations</string>
+    <string name="fragment_title_injection">Injection Substations</string>
+    <string name="fragment_title_distribution">Distribution Stations</string>
+    <string name="fragment_title_feeder33">33KV Feeders</string>
+    <string name="fragment_title_feeder11">11KV Feeders</string>
+</resources>

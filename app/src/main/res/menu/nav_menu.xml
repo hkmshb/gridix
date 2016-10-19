@@ -1,55 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <group
-        android:checkableBehavior="single">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
         <item
-            android:title="Transmisssion Stations"
-            android:checked="true"
-            android:id="@+id/nav_menu_transmission" />
+            android:title="@string/fragment_title_home"
+            android:id="@+id/nav_menu_home"
+            android:checked="true"/>
         <item
-            android:title="Injection SubStations"
-            android:checked="false"
-            android:id="@+id/nav_menu_injection" />
+            android:title="@string/fragment_stations_menu_title">
+            <menu>
+                <group
+                    android:checkableBehavior="single">
+                    <item
+                        android:title="@string/fragment_title_transmission"
+                        android:checked="false"
+                        android:id="@+id/nav_menu_transmission" />
+                    <item
+                        android:title="@string/fragment_title_injection"
+                        android:checked="false"
+                        android:id="@+id/nav_menu_injection" />
+                    <item
+                        android:title="@string/fragment_title_distribution"
+                        android:checked="false"
+                        android:id="@+id/nav_menu_distribution" />
+
+                </group>
+            </menu>
+        </item>
+
         <item
-            android:title="Distribution Stations"
-            android:checked="false"
-            android:id="@+id/nav_menu_distribution" />
+            android:title="@string/fragment_feeder_menu_title">
+            <menu>
+                <group
+                    android:checkableBehavior="single">
+                    <item
+                        android:title="@string/fragment_title_feeder33"
+                        android:checked="false"
+                        android:id="@+id/nav_menu_feeder_33"/>
+                    <item
+                        android:title="@string/fragment_title_feeder11"
+                        android:checked="false"
+                        android:id="@+id/nav_menu_feeder_11"/>
+
+                </group>
+
+            </menu>
+        </item>
+
+        <!--Remove this item-->
+        <item
+            android:title="Remember to Remove This">
+            <menu>
+                <group
+                    android:checkableBehavior="single">
+                    <item
+                        android:title="test"
+                        android:checked="false"
+                        android:id="@+id/nav_menu_test"/>
+                </group>
+            </menu>
+        </item>
+
 
     </group>
-
-    <item
-        android:title="Feeders">
-        <menu>
-            <group
-                android:checkableBehavior="single">
-                <item
-                    android:title="33kv"
-                    android:checked="false"
-                    android:id="@+id/nav_menu_feeder_33"/>
-                <item
-                    android:title="11kv"
-                    android:checked="false"
-                    android:id="@+id/nav_menu_feeder_11"/>
-
-            </group>
-
-        </menu>
-    </item>
-
-    <!--Remove this item-->
-    <item
-        android:title="Remember to Remove This">
-        <menu>
-            <group
-                android:checkableBehavior="single">
-                <item
-                    android:title="test"
-                    android:checked="false"
-                    android:id="@+id/nav_menu_test"/>
-            </group>
-        </menu>
-    </item>
-
 
 </menu>

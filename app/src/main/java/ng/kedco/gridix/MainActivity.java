@@ -3,6 +3,7 @@ package ng.kedco.gridix;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
@@ -26,6 +27,7 @@ import ng.kedco.gridix.enums.ViewType;
 import ng.kedco.gridix.fragments.DistributionsFragment;
 import ng.kedco.gridix.fragments.FeederThirtyThreeFragment;
 import ng.kedco.gridix.fragments.FeederElevenFragment;
+import ng.kedco.gridix.fragments.HomeFragment;
 import ng.kedco.gridix.fragments.InjectionsFragment;
 import ng.kedco.gridix.fragments.TestFragment;
 import ng.kedco.gridix.fragments.TransmissionsFragment;
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//        ensureSync();
         fm = getSupportFragmentManager();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -62,13 +65,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void initialiseActivity() {
         selectedViewOption = ViewType.LIST;
-        currentDisplayClass = TransmissionsFragment.class;
-        TransmissionsFragment tf = new TransmissionsFragment();
-        Bundle tfargs = new Bundle();
-        tfargs.putSerializable("view_type",selectedViewOption);
-        tf.setArguments(tfargs);
-        fm.beginTransaction().replace(R.id.frame_container,tf, FragmentTags.TRANSMISSION.toString()).commit();
-        setTitle("Transmission Stations");
+        currentDisplayClass = HomeFragment.class;
+        HomeFragment hf = new HomeFragment();
+        fm.beginTransaction().replace(R.id.frame_container,hf, FragmentTags.HOME.toString()).commit();
+        setTitle("Home");
     }
 
     @Override
@@ -165,6 +165,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 return true;
+            case R.id.settings:
+                Intent i = new Intent(this,SettingsActivity.class);
+                startActivity(i);
         }
 
 
@@ -213,6 +216,9 @@ public class MainActivity extends AppCompatActivity {
         else if(fragment instanceof  FeederElevenFragment){
             ftag = FragmentTags.FEEDERELV.toString();
         }
+        else if(fragment instanceof HomeFragment){
+            ftag = FragmentTags.HOME.toString();
+        }
         fm.beginTransaction().replace(R.id.frame_container,fragment,ftag).commit();
         item.setChecked(true);
         setTitle(item.getTitle());
@@ -240,6 +246,9 @@ public class MainActivity extends AppCompatActivity {
         else if(id==R.id.nav_menu_test){
             currentDisplayClass = TestFragment.class;
         }
+        else if(id==R.id.nav_menu_home){
+            currentDisplayClass = HomeFragment.class;
+        }
 
     }
 
@@ -249,6 +258,20 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("from",from);
         startActivity(intent);
     }
+
+    private void ensureSync(){
+        SharedPreferences sp = getSharedPreferences(getResources().getString(R.string.first_sp),MODE_PRIVATE);
+        if(sp.getBoolean(getResources().getString(R.string.is_first),true)){
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putBoolean(getResources().getString(R.string.is_first),false);
+            editor.commit();
+            Intent intent = new Intent(this,SyncActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
+    }
+
 
 
 

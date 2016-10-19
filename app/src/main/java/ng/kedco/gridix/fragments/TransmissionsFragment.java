@@ -2,7 +2,9 @@ package ng.kedco.gridix.fragments;
 
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.DataSetObserver;
 import android.os.AsyncTask;
@@ -58,6 +60,7 @@ import ng.kedco.gridix.decorators.GridSpacingItemDecoration;
  */
 public class TransmissionsFragment extends Fragment {
     //general setup
+    String root_url;
     ConnectivtyHelper connectivtyHelper;
     JsonHelper jsonHelper;
     Holder holder = Holder.getInstance();
@@ -77,6 +80,9 @@ public class TransmissionsFragment extends Fragment {
 
     public TransmissionsFragment() {
         // Required empty public constructor
+        SharedPreferences sp = getActivity().getSharedPreferences(getResources().getString(R.string.url_sp), Context.MODE_PRIVATE);
+        root_url = sp.getString(getResources().getString(R.string.stored_url),"");
+
 
 
     }
@@ -220,7 +226,6 @@ public class TransmissionsFragment extends Fragment {
 
 
     public class GetStations extends AsyncTask<String,Void,Status> {
-        String result;
         SwipeRefreshLayout swl;
 
         GetStations(SwipeRefreshLayout sl){this.swl = sl;}

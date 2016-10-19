@@ -4,6 +4,13 @@ package ng.kedco.gridix.enums;
  * Created by shaibujnr on 9/23/16.
  */
 public enum FragmentTags {
+
+    HOME{
+        @Override
+        public String toString() {
+            return "home_fragment_tag";
+        }
+    },
     TRANSMISSION{
         @Override
         public String toString() {

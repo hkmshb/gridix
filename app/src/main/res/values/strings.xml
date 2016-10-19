@@ -2,8 +2,13 @@
     <string name="app_name">GridIX</string>
     <string name="drawer_open">Drawer Open</string>
     <string name="drawer_close">Drawer Closed</string>
+    <string name="default_api_root_url">http://utilitrak.hazeltek.com/api/v1/</string>
+    <string name="url_sp">url_db</string>
+    <string name="stored_url">root_url</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="is_first">first_launch</string>
+    <string name="first_sp">first_launch_db</string>
 
 </resources>
