@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">GridIX</string>
+    <string name="title_activity_main2">MainActivity2</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_add_station">AddStationActivity</string>
+
+    <string name="select_type">Select Type</string>
+    <string name="select_voltage_ratio">Select Voltage Ratio</string>
+    <string name="select_source_powerline">Select Source Powerline</string>
 </resources>

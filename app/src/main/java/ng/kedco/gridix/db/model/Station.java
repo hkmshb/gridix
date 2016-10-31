@@ -92,5 +92,10 @@ public class Station extends NetworkEntity
     {
         return this.dateCommissioned;
     }
+
+    public String toString()
+    {
+        return this.name;
+    }
 }
 

@@ -55,7 +55,7 @@ public class Powerline extends NetworkEntity
     {
         return this.poleCount;
     }
-    
+
     public int lineLength()
     {
         return this.lineLength;

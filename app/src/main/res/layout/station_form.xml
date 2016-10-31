@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content">
+
+    <EditText
+        android:id="@+id/txtExtId"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter External Id"/>
+    <EditText
+        android:id="@+id/txtCode"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Code"/>
+    <EditText
+        android:id="@+id/txtAltCode"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Alternate Code"/>
+    <EditText
+        android:id="@+id/txtName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Name" />
+
+    <!--
+    <Spinner
+        android:id="@+id/spnType"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:prompt="@string/select_type" />
+    <Spinner
+        android:id="@+id/spnVoltageRatio"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:prompt="@string/select_voltage_ratio" />
+    <Spinner
+        android:id="@+id/spnSourcePowerline"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:prompt="@string/select_source_powerline" />
+    -->
+    <CheckBox
+        android:id="@+id/chkIsPublic"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Is Public" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btnSubmit"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Submit" />
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Cancel" />
+    </LinearLayout>
+
+
+</LinearLayout>
