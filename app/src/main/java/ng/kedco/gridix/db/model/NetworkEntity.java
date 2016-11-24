@@ -8,10 +8,10 @@ public abstract class NetworkEntity extends Entity
     private String code;
     private String altCode;
 
-    protected NetworkEntity(int id, String code, String altCode, boolean deleted,
-                            Date lastUpdated)
+    protected NetworkEntity(int id, int extId, String code, String altCode,
+                            boolean deleted, Date lastUpdated)
     {
-        super(id, deleted, lastUpdated);
+        super(id, extId, deleted, lastUpdated);
         this.altCode = altCode;
         this.code = code;
     }

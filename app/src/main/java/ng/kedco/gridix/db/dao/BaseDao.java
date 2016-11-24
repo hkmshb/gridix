@@ -45,6 +45,7 @@ public abstract class BaseDao
 
     protected void fillValues(ContentValues values, Entity entity)
     {
+        values.put(EntitySchema.COL_EXTID, entity.externalId());
         values.put(EntitySchema.COL_DELETED, entity.deleted());
         values.put(EntitySchema.COL_LAST_UPDATED, toISODateString(entity.lastUpdated()));
     }

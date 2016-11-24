@@ -5,6 +5,7 @@ package ng.kedco.gridix.db.schema;
 public abstract class EntitySchema
 {
     public static final String COL_ID = "_id";
+    public static final String COL_EXTID = "ext_id";
     public static final String COL_DELETED = "deleted";
     public static final String COL_LAST_UPDATED = "last_updated";
 

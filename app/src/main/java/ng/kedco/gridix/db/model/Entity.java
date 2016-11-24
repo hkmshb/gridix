@@ -6,12 +6,14 @@ import java.util.Date;
 public abstract class Entity
 {
     private int id;
+    private int extId;
     private boolean deleted;
     private Date lastUpdated;
 
-    protected Entity(int id, boolean deleted, Date lastUpdated)
+    protected Entity(int id, int extId, boolean deleted, Date lastUpdated)
     {
         this.id = id;
+        this.extId = extId;
         this.deleted = deleted;
         this.lastUpdated = lastUpdated;
     }
@@ -19,6 +21,11 @@ public abstract class Entity
     public int id()
     {
         return this.id;
+    }
+
+    public int externalId()
+    {
+        return this.extId;
     }
 
     public boolean deleted()

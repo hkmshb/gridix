@@ -2,17 +2,20 @@ package ng.kedco.gridix.db.dao;
 
 import java.util.List;
 import ng.kedco.gridix.db.model.Station;
+import ng.kedco.gridix.db.model.StationType;
 
 
 public interface IStationDao
 {
     boolean addStation(Station station);
 
-    Station fetchStationById(int id);
+    Station fetchById(int id);
 
-    Station fetchStationByCode(String code);
+    Station fetchByCode(String code);
 
-    Station fetchStationByAltCode(String code);
+    Station fetchByAltCode(String code);
 
     List<Station> fetchStations();
+
+    List<Station> fetchByType(StationType type);
 }
